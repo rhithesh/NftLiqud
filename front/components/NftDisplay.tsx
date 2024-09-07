@@ -1,7 +1,8 @@
+"use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import SolanaLogo from "@/public/solanaLogo.png";
-
+import Image from "next/image";
 interface NFTDisplayProps {
   imageUrl: string;
   title: string;
@@ -10,8 +11,8 @@ interface NFTDisplayProps {
   price: number;
 }
 
-export default function Component({
-  imageUrl = "/placeholder.svg?height=400&width=400",
+export default function NftDisplay({
+  imageUrl = "https://bafybeicz6y4szvtaycgshstnsdihqumslzc5fgpzweekc3hvvg5nbe4bsa.ipfs.w3s.link/8218.png",
   title = "Cosmic Perspective #42",
   creator = "AstroArtist",
   creatorAvatar = "/placeholder.svg?height=50&width=50",
@@ -21,16 +22,18 @@ export default function Component({
 
   return (
     <motion.div
-      className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out"
+      className="w-[300px] rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out"
       whileHover={{ scale: 1.05 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
       <div className="relative">
-        <img
+        <Image
           className="w-full h-64 object-cover"
-          src={SolanaLogo}
+          src={imageUrl}
           alt={title}
+          width={300}
+          height={300}
         />
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100">
           <button className="bg-white text-black font-bold py-2 px-4 rounded">
@@ -48,17 +51,18 @@ export default function Component({
       </div>
       <div className="px-6 pt-4 pb-2 flex items-center justify-between">
         <div className="flex items-center">
-          <img
+          <Image
             className="w-10 h-10 rounded-full mr-4"
-            src={creatorAvatar}
+            src={SolanaLogo}
             alt={creator}
+            width={100}
+            height={100}
           />
           <p className="text-gray-700 dark:text-gray-300 text-sm">{creator}</p>
         </div>
         <div className="flex items-center">
-          <EthereumIcon className="h-5 w-5 text-blue-500 mr-1" />
           <span className="text-gray-700 dark:text-gray-300 font-bold">
-            {price} ETH
+            {price} SOL
           </span>
         </div>
       </div>
