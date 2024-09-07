@@ -12,13 +12,26 @@ import { clusterApiUrl } from "@solana/web3.js";
 
 // Default styles that can be overridden by your app
 require("@solana/wallet-adapter-react-ui/styles.css");
+
+// Custom RPC endpoint (replace with your actual endpoint if needed)
+const CUSTOM_RPC_ENDPOINT =
+  process.env.NEXT_PUBLIC_SOLANA_RPC_URL ||
+  "https://mainnet.helius-rpc.com/?api-key=eda96028-2abb-4f07-9ac9-50b28d3fd10e";
+
 export default function AppWalletProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const network = WalletAdapterNetwork.Mainnet;
+  console.log("Network:", network);
+
+  const endpoint = useMemo(() => {
+    const selectedEndpoint = CUSTOM_RPC_ENDPOINT || clusterApiUrl(network);
+    console.log("Selected endpoint:", selectedEndpoint);
+    return selectedEndpoint;
+  }, [network]);
+
   const wallets = useMemo(
     () => [
       // manually add any legacy wallet adapters here

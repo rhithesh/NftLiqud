@@ -35,9 +35,11 @@ const WalletConnection = () => {
     const fetchAccountInfo = async () => {
       try {
         const info = await connection.getAccountInfo(publicKey);
+        console.log(info);
         if (info) {
           setBalance(info.lamports / LAMPORTS_PER_SOL);
-          console.log(publicKey);
+          console.log(info.lamports);
+          console.log(publicKey, "Hithesh");
         }
       } catch (error) {
         console.error("Error fetching account info:", error);
