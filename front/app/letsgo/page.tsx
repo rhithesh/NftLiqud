@@ -1,12 +1,11 @@
 "use client";
 import WalletConnection from "@/components/WalletConnection";
-import { useWallet, useConnection } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from "react";
 import TypingAnimation from "@/components/magicui/typing-animation";
 
 export default function Page() {
-  const { publicKey, sendTransaction } = useWallet();
-  const { connection } = useConnection();
+  const { publicKey } = useWallet();
   const [pub, setpub] = useState(false);
 
   useEffect(() => {
