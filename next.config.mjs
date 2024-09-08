@@ -6,6 +6,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "**", // This will allow images from any host
       },
+
     ],
   },
 };

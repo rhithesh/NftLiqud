@@ -9,9 +9,12 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { clusterApiUrl } from "@solana/web3.js";
 // import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
-
+import { TipLinkWalletAdapter } from "@tiplink/wallet-adapter"
 // Default styles that can be overridden by your app
 require("@solana/wallet-adapter-react-ui/styles.css");
+
+
+const TIPLINK_CLIENT_ID = process.env.TIPLINK_CLIENT_ID as string; 
 
 // Custom RPC endpoint (replace with your actual endpoint if needed)
 const CUSTOM_RPC_ENDPOINT =
@@ -34,10 +37,15 @@ export default function AppWalletProvider({
 
   const wallets = useMemo(
     () => [
-      // manually add any legacy wallet adapters here
-      // new UnsafeBurnerWalletAdapter(),
+
+      new TipLinkWalletAdapter({
+        title: "NFT",
+        clientId: TIPLINK_CLIENT_ID,
+        theme: "dark",
+      })
+
     ],
-    [network],
+    [],
   );
 
   return (
