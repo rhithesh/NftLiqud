@@ -45,7 +45,7 @@ export default function AppWalletProvider({
       })
 
     ],
-    [network],
+    [],
   );
 
   return (

@@ -1,7 +1,12 @@
 "use client";
+import {
+  AccountSubscriptionConfig,
+  LAMPORTS_PER_SOL,
+  AccountInfo,
+} from "@solana/web3.js";
+import { WalletName } from "@solana/wallet-adapter-base";
 import React, { useEffect, useState } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -12,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { FaWallet } from "react-icons/fa";
+
 const toFixed = (num: number, fixed: number): string => {
   const re = new RegExp(`^-?\\d+(?:\\.\\d{0,${fixed || -1}})?`);
   return num.toString().match(re)![0];
@@ -31,38 +37,51 @@ const WalletConnection = () => {
       try {
         const info = await connection.getAccountInfo(publicKey);
         if (info) {
-          setBalance(info.lamports / LAMPORTS_PER_SOL);
+          setBalance(info.lamports / Number(LAMPORTS_PER_SOL));
         }
       } catch (error) {
         console.error("Error fetching account info:", error);
       }
     };
 
-    const handleAccountChange = (updatedAccountInfo: any) => {
+    const handleAccountChange = (updatedAccountInfo: AccountInfo<Buffer>) => {
       setBalance(updatedAccountInfo.lamports / LAMPORTS_PER_SOL);
     };
 
-    connection.onAccountChange(publicKey, handleAccountChange, "confirmed");
+    const accountSubscriptionConfig: AccountSubscriptionConfig = {
+      commitment: "confirmed",
+    };
+
+    const subscriptionId = connection.onAccountChange(
+      publicKey,
+      handleAccountChange,
+      accountSubscriptionConfig
+    );
+
     fetchAccountInfo();
 
     return () => {
-      connection.removeAccountChangeListener(publicKey, handleAccountChange);
+      connection.removeAccountChangeListener(subscriptionId);
     };
   }, [publicKey, connection]);
 
-  const handleWalletSelect = async (walletName: any) => {
+  const handleWalletSelect = async (walletName: WalletName) => {
     if (walletName) {
       try {
         select(walletName);
         setOpen(false);
       } catch (error) {
-        console.log("wallet connection error:", error);
+        console.log("Wallet connection error:", error);
       }
     }
   };
 
   const handleDisconnect = async () => {
-    disconnect();
+    try {
+      await disconnect();
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+    }
   };
 
   return (
