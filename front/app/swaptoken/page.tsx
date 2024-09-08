@@ -42,7 +42,7 @@ export default function Component() {
     setTokenPrice((Math.floor(Math.random() * 1000) / 10).toString());
   };
 
-  const handleNFTChange = (nft :) => {
+  const handleNFTChange = (nft : any) => {
     setSelectedNFT(nft);
   };
 
