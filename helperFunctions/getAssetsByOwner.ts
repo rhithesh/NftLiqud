@@ -1,30 +1,34 @@
-const a = async () => {
-  const response = await fetch(
-    "https://mainnet.helius-rpc.com/?api-key=eda96028-2abb-4f07-9ac9-50b28d3fd10e",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        jsonrpc: "2.0",
-        id: "text",
-        method: "getAssetsByOwner",
-        params: {
-          ownerAddress: "H1V3XkxhGuADph1ajAWmTjwUcY6Y8EVX3PfXosdsP2JM",
-          page: 1,
-        },
-      }),
-    },
-  );
+import axios from "axios";
 
-  if (response.ok) {
-    const data = await response.json();
-    const items = data.result.items; // Access the items
-    console.log(items); // Log the items
-  } else {
-    console.error("Error:", response.status, response.statusText);
+const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string;
+const url = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
+
+export const getAssetsByOwner = async (userAddress: string) => {
+  try {
+    const response = await axios.post(url, {
+      jsonrpc: '2.0',
+      id: 'my-id',
+      method: 'getAssetsByOwner',
+      params: {
+        ownerAddress: userAddress,
+        page: 1,
+        limit: 1000,
+      },
+    });
+
+    const assets = response.data.result.items.map((item: any) => {
+      const cdnUri = item.content.files[0]?.cdn_uri || "";
+      const id = item.id;
+      console.log(id)
+      const title = item.content.metadata.name || "Unknown Title";
+      return { id, imageurl: cdnUri, title };
+    });
+
+    return assets;
+
+  } catch (error) {
+    console.error('Error fetching assets:', error);
+    return [];
   }
 };
 
-a();
