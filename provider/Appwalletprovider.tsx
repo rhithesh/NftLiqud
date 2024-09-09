@@ -11,13 +11,11 @@ import { clusterApiUrl } from "@solana/web3.js";
 import { TipLinkWalletAdapter } from "@tiplink/wallet-adapter"
 require("@solana/wallet-adapter-react-ui/styles.css");
 
+const TIPLINK_CLIENT_ID = process.env.TIPLINK_CLIENT_ID as string; 
+const HELIUS_API = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string;
 
-const TIPLINK_CLIENT_ID = process.env.TIPLINK_CLIENT_ID as string;
-const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string
+const CUSTOM_RPC_ENDPOINT = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API}`;
 
-const CUSTOM_RPC_ENDPOINT =
-  process.env.NEXT_PUBLIC_SOLANA_RPC_URL ||
-  `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
 
 export default function AppWalletProvider({
   children,
