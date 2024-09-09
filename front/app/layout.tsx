@@ -4,6 +4,41 @@ import "./globals.css";
 import { ThemeProvider } from "@/provider/theme-provider";
 import AppWalletProvider from "@/components/Appwalletprovider";
 import { Navbar } from "@/components/globals/Navbar";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  concat,
+  ApolloLink,
+} from "@apollo/client";
+
+const API_KEY = process.env.TENSOR_API_KEY ?? "";
+if (!API_KEY) throw new Error("please specify envvar TENSOR_API_KEY");
+
+// Setup Apollo client.
+const authLink = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      "X-TENSOR-API-KEY": API_KEY,
+    },
+  });
+  return forward(operation);
+});
+const httpLink = new HttpLink({ uri: "https://api.tensor.so/graphql", fetch });
+const client = new ApolloClient({
+  link: concat(authLink, httpLink),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: "no-cache",
+    },
+    watchQuery: {
+      fetchPolicy: "no-cache",
+      nextFetchPolicy: "no-cache",
+    },
+  },
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,17 +66,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AppWalletProvider>
-            <Navbar />
-            {children}
-          </AppWalletProvider>
-        </ThemeProvider>
+        <ApolloProvider client={client}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AppWalletProvider>
+              <Navbar />
+              {children}
+            </AppWalletProvider>
+          </ThemeProvider>
+        </ApolloProvider>
       </body>
     </html>
   );
