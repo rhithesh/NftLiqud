@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/provider/theme-provider";
-import AppWalletProvider from "@/components/Appwalletprovider";
+import AppWalletProvider from "@/provider/Appwalletprovider";
 import { Navbar } from "@/components/globals/Navbar";
 
 const geistSans = localFont({
@@ -31,17 +31,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AppWalletProvider>
+        <AppWalletProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
             <Navbar />
             {children}
-          </AppWalletProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </AppWalletProvider>
       </body>
     </html>
   );

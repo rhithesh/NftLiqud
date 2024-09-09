@@ -1,28 +1,40 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Card } from "./NftCard";
+import { getAssetsByOwner } from "@/helperFunctions/getAssetsByOwner";
 
 interface Nft {
   id: string;
   imageurl: string;
   title: string;
-  creator: string;
-  price: number;
 }
-
 export function NftDisplay() {
   const [nftCollection, setNftCollection] = useState<Nft[]>([]);
+
   useEffect(() => {
-    axios
-      .get(`/nftdata.json`)
-      .then((response) => {
-        setNftCollection(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching NFT data:", error);
-      });
+    const fetchNft = async () => {
+      try {
+        if (typeof window.solana !== "undefined" && window.solana.isPhantom) {
+          const response = await window.solana.connect();
+          console.log("Connection response:", response); 
+
+          if (response.publicKey) {
+            const userAddress = response.publicKey.toString();
+            console.log("User address:", userAddress);
+            const assets = await getAssetsByOwner(userAddress);
+            setNftCollection(assets);
+          } else {
+            console.error("Failed to retrieve the public key from the wallet");
+          }
+        } else {
+          console.error("Solana wallet not found or not Phantom");
+        }
+      } catch (error) {
+        console.log("Error connecting to wallet:", error);
+      }
+    };
+
+    fetchNft();
   }, []);
 
   return (
@@ -30,13 +42,11 @@ export function NftDisplay() {
       {nftCollection.map((nft) => (
         <Card
           key={nft.id}
-          id={nft.id}
           imageUrl={nft.imageurl}
           title={nft.title}
-          creator={nft.creator}
-          price={nft.price}
         />
       ))}
     </div>
   );
 }
+
