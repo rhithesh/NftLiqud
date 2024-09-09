@@ -6,9 +6,9 @@ const url = `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
 export const getAssetsByOwner = async (userAddress: string) => {
   try {
     const response = await axios.post(url, {
-      jsonrpc: '2.0',
-      id: 'my-id',
-      method: 'getAssetsByOwner',
+      jsonrpc: "2.0",
+      id: "my-id",
+      method: "getAssetsByOwner",
       params: {
         ownerAddress: userAddress,
         page: 1,
@@ -19,16 +19,16 @@ export const getAssetsByOwner = async (userAddress: string) => {
     const assets = response.data.result.items.map((item: any) => {
       const cdnUri = item.content.files[0]?.cdn_uri || "";
       const id = item.id;
-      console.log(id)
+      console.log(id);
       const title = item.content.metadata.name || "Unknown Title";
       return { id, imageurl: cdnUri, title };
     });
 
-    return assets;
+    console.log(assets);
 
+    return assets;
   } catch (error) {
-    console.error('Error fetching assets:', error);
+    console.error("Error fetching assets:", error);
     return [];
   }
 };
-

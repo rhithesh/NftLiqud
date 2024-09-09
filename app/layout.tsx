@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ThemeProvider } from "@/provider/theme-provider";
 import AppWalletProvider from "@/provider/Appwalletprovider";
 import { Navbar } from "@/components/globals/Navbar";
 
@@ -32,15 +31,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppWalletProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            {children}
-          </ThemeProvider>
+          <Navbar />
+          {children}
         </AppWalletProvider>
       </body>
     </html>
