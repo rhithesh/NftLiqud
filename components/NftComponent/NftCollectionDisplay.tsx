@@ -13,7 +13,6 @@ export function NftDisplay() {
   const [nftCollection, setNftCollection] = useState<Nft[]>([]);
 
   const { publicKey } = useWallet();
-  console.log(publicKey);
   useEffect(() => {
     if (!publicKey) {
       return;
@@ -36,7 +35,12 @@ export function NftDisplay() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {nftCollection.map((nft) => (
-        <Card key={nft.id} imageUrl={nft.imageurl} title={nft.title} />
+        <Card
+          id={nft.id}
+          key={nft.id}
+          imageUrl={nft.imageurl}
+          title={nft.title}
+        />
       ))}
     </div>
   );

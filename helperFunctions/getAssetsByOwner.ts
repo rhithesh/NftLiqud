@@ -24,8 +24,6 @@ export const getAssetsByOwner = async (userAddress: string) => {
       return { id, imageurl: cdnUri, title };
     });
 
-    console.log(assets);
-
     return assets;
   } catch (error) {
     console.error("Error fetching assets:", error);
