@@ -2,7 +2,7 @@ import GitHubStats from "@/components/globals/GitHubStats";
 
 export default function Page() {
   return (
-    <div className="container mt-[6rem] mx-auto p-4">
+    <div className=" mt-[6rem] mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 bg-gradient-to-tr from-orange-300 via-orange-400 to-orange-700 lg:text-4xl bg-clip-text text-transparent">
         Meet The Creators
       </h1>
