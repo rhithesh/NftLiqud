@@ -19,9 +19,9 @@ export const getAssetsByOwner = async (userAddress: string) => {
     const assets = response.data.result.items.map((item: any) => {
       const cdnUri = item.content.files[0]?.cdn_uri || "";
       const id = item.id;
-      console.log(id);
       const title = item.content.metadata.name || "Unknown Title";
-      return { id, imageurl: cdnUri, title };
+      const description = item.content.metadata.description || "No description";
+      return { id, imageurl: cdnUri, title , description };
     });
 
     return assets;
