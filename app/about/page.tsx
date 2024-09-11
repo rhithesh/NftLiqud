@@ -6,7 +6,7 @@ export default function Page() {
       <h1 className="text-3xl font-bold mb-6 bg-gradient-to-tr from-orange-300 via-orange-400 to-orange-700 lg:text-4xl bg-clip-text text-transparent">
         Meet The Creators
       </h1>
-      <div className="grid grid-col-4 gap-4 shadow-2xl shadow-orange-300">
+      <div className="grid grid-col-4 gap-4 shadow-2xl m-h-[100vh] shadow-orange-300">
         <GitHubStats username="saksham-tomer" />
         <GitHubStats username="rhithesh" />
         <GitHubStats username="iharsh02" />
