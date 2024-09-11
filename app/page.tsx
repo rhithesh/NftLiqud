@@ -5,7 +5,7 @@ import SlideShow from "@/components/globals/SlideShow";
 import { TokenShow } from "@/components/globals/TokenShow";
 export default function Home() {
   return (<main className="min-h-screen mx-auto">
-    <section className="mt-[5rem]">
+    <section className="mt-[7rem]">
       <Hero />
     </section>
     <section>
