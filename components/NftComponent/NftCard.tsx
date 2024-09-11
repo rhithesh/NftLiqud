@@ -20,7 +20,7 @@ function Card({ data }: CardProps) {
 
   const router = useRouter();
 
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     router.push(`swap/${data.id}`);
   };
 
