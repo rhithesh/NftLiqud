@@ -1,5 +1,4 @@
 "use client";
-
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import getAsset from "@/helperFunctions/getAsset";
@@ -14,10 +13,8 @@ export default function ExampleClientComponent() {
       setJson(k);
     };
     y();
-  }, []);
-
+  }, [pathname]);
   console.log(pathname.split("/")[2]);
-
   return (
     <>
       <div className=" m-[5rem]">
@@ -26,6 +23,4 @@ export default function ExampleClientComponent() {
       </div>
     </>
   );
-
-  // ...
 }

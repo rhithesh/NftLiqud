@@ -55,27 +55,27 @@ const WalletConnection = () => {
           ) : (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className=" text-white border px-3 py-2 flex items-center space-x-2 transition duration-200 ease-in-out">
+                <button className="bg-orange-500 text-center text-white px-4 py-2 rounded-md text-base font-mono font-medium hover:bg-orange-600 transition-colors">
 
-                  <span className=" text-sm">{`${publicKey.toBase58().slice(0, 4)}...${publicKey
+                  <span className="text-sm">{`${publicKey.toBase58().slice(0, 4)}...${publicKey
                     .toBase58()
                     .slice(-4)}`}</span>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-black border rounded-lg">
+              <DropdownMenuContent className="bg-orange-500 rounded-lg hover:bg-orange-600">
                 <DropdownMenuItem>
-                  <button
+                  <div
                     onClick={handleDisconnect}
-                    className="w-full bg-black font-medium py-2 px-4 rounded transition duration-150 ease-in-out"
+                    className="w-full h-full  text-center p-2 bg-orange-500  text-white backdrop-blur-sm font-mono rounded transition duration-150 ease-in-out hover:bg-orange-600"
                   >
                     Disconnect
-                  </button>
+                  </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
 
-          <DialogContent className="bg-black border border-white rounded-xl shadow-2xl max-w-md">
+          <DialogContent className="bg-black backdrop-blur-sm bg-opacity-40 rounded-xl shadow-2xl max-w-md">
             <h2 className="text-2xl font-bold text-center mb-6 text-white">
               Select a Wallet
             </h2>
@@ -84,7 +84,7 @@ const WalletConnection = () => {
                 <button
                   key={wallet.adapter.name}
                   onClick={() => handleWalletSelect(wallet.adapter.name)}
-                  className="w-full flex items-center space-x-3 bg-black hover:bg-gray-700 text-white rounded-lg p-3 transition duration-150 ease-in-out"
+                  className="w-full flex items-center space-x-3  hover:bg-orange-600 text-white rounded-lg p-3 transition duration-150 ease-in-out"
                 >
                   <Image
                     src={wallet.adapter.icon}
