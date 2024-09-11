@@ -10,7 +10,7 @@ export const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
   return (
-    <nav className="fixed  left-8 right-8 mb-8 z-10 mt-4 rounded-2xl bg-gray-900 text-white font-mono shadow-md">
+    <nav className="fixed  left-4 right-4 md:left-8 md:right-8 lg:right-10 lg:left-10 xl:left-12 xl:right-12 mb-8 z-10 mt-4 rounded-2xl bg-gray-900 text-white font-mono shadow-md">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

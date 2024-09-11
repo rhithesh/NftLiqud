@@ -5,13 +5,13 @@ import SlideShow from "@/components/globals/SlideShow";
 import { TokenShow } from "@/components/globals/TokenShow";
 export default function Home() {
   return (<main className="min-h-screen mx-auto">
-    <section className="mt-[7rem]">
+    <section className="mt-[7rem] px-4 ">
       <Hero />
     </section>
     <section>
       <Slider />
     </section>
-    <article className="flex flex-col items-center justify-center mt-20">
+    <article className="flex flex-col items-center justify-center mt-20 px-4">
       <h1 className="font-mono font-extrabold text-3xl md:text-4xl lg:text-5xl">
         Fastest swaps and liquidaton on Solana
       </h1>
