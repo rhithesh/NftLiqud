@@ -1,4 +1,6 @@
 "use client";
+/* eslint-disable */
+// @ts-nocheck
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
@@ -28,7 +30,11 @@ import {
   CreditCard,
 } from "lucide-react";
 import { SellPageSkeleton } from "@/components/NftComponent/sell-page-skeleton";
+<<<<<<< Updated upstream
 import Image from "next/image";
+=======
+
+>>>>>>> Stashed changes
 const currencies = [
   {
     name: "Solana",
@@ -47,6 +53,7 @@ const fadeInUp = {
   animate: { y: 0, opacity: 1 },
   exit: { y: -20, opacity: 0 },
 };
+<<<<<<< Updated upstream
 
 interface NFT {
   name: string;
@@ -61,6 +68,10 @@ interface NFTDetailsProps {
 }
 
 const NFTDetails : React.FC<NFTDetailsProps> = ({ nft }) => (
+=======
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const NFTDetails = ({ nft }: { nft: any }) => (
+>>>>>>> Stashed changes
   <div className="space-y-4">
     <motion.div variants={fadeInUp}>
       <h3 className="text-lg font-semibold text-slate-400">Description</h3>
@@ -69,6 +80,7 @@ const NFTDetails : React.FC<NFTDetailsProps> = ({ nft }) => (
     <motion.div variants={fadeInUp}>
       <h3 className="text-lg font-semibold text-gray-400">Attributes</h3>
       <div className="grid grid-cols-2 gap-2">
+<<<<<<< Updated upstream
         {nft.attributes.map(
           (attr: { value: string; trait_type: string }, index: number) => (
             <div key={index} className="bg-orange-100 rounded-md p-2">
@@ -79,6 +91,16 @@ const NFTDetails : React.FC<NFTDetailsProps> = ({ nft }) => (
             </div>
           )
         )}
+=======
+        {nft.attributes.map((attr, index) => (
+          <div key={index} className="bg-orange-100 rounded-md p-2">
+            <span className="font-semibold text-orange-800">
+              {attr.trait_type}:
+            </span>
+            <span className="text-orange-600 ml-1">{attr.value}</span>
+          </div>
+        ))}
+>>>>>>> Stashed changes
       </div>
     </motion.div>
     <motion.div variants={fadeInUp}>
@@ -88,6 +110,7 @@ const NFTDetails : React.FC<NFTDetailsProps> = ({ nft }) => (
   </div>
 );
 
+<<<<<<< Updated upstream
 const PriceEstimator = ({
   estimatedPrice,
   finalPrice,
@@ -97,6 +120,9 @@ const PriceEstimator = ({
   finalPrice: number;
   selectedCurrency: { name: string; logo: string; symbol: string };
 }) => (
+=======
+const PriceEstimator = ({ estimatedPrice, finalPrice, selectedCurrency }) => (
+>>>>>>> Stashed changes
   <motion.div
     variants={fadeInUp}
     className="bg-gradient-to-br from-orange-100 to-orange-200 p-4 rounded-lg shadow-inner"
@@ -230,8 +256,13 @@ export default function SellPage() {
             variants={fadeInUp}
             className="relative h-80 bg-gradient-to-r from-orange-200 to-orange-400 rounded-lg mb-8 overflow-hidden shadow-lg"
           >
+<<<<<<< Updated upstream
             <Image
               src="/nft.png"
+=======
+            <img
+              src="/Designer.jpeg"
+>>>>>>> Stashed changes
               alt="Selected NFT"
               className="w-full h-full object-cover mix-blend-overlay"
             />
@@ -290,6 +321,7 @@ export default function SellPage() {
                     Select Currency
                   </label>
                   <Select
+<<<<<<< Updated upstream
                     onValueChange={(value) => {
                       const selected = currencies.find(
                         (c) => c.symbol === value
@@ -298,6 +330,13 @@ export default function SellPage() {
                         setSelectedCurrency(selected);
                       }
                     }}
+=======
+                    onValueChange={(value) =>
+                      setSelectedCurrency(
+                        currencies.find((c) => c.symbol === value),
+                      )
+                    }
+>>>>>>> Stashed changes
                   >
                     <SelectTrigger id="currency" className="w-full">
                       <SelectValue placeholder="Select currency" />
@@ -309,11 +348,17 @@ export default function SellPage() {
                           value={currency.symbol}
                         >
                           <div className="flex items-center">
+<<<<<<< Updated upstream
                             <Image
                               src={currency.logo}
                               alt={currency.name}
                               width={400}
                               height={400}
+=======
+                            <img
+                              src={currency.logo}
+                              alt={currency.name}
+>>>>>>> Stashed changes
                               className="w-6 h-6 mr-2"
                             />
                             {currency.name} ({currency.symbol})

@@ -21,10 +21,12 @@ const features = [
     cta: "NFT NAME",
     background: (
       <Image
+        alt=""
         src={Nft2}
         width={500}
         height={500}
-        className="absolute  h-full " alt={""}      />
+        className="absolute h-full"
+      />
     ),
     className:
       "lg:row-start-1 lg:row-end-5 lg:col-start-2 lg:col-end-3 sm:row-span-3",
@@ -36,7 +38,7 @@ const features = [
     href: "/",
     cta: "NFT NAME",
     background: (
-      <Image src={Nft3} width={500} height={300} className="absolute  " alt={""} />
+      <Image alt="" src={Nft3} width={500} height={300} className="absolute" />
     ),
     className:
       "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3 sm:row-span-3",
@@ -47,7 +49,7 @@ const features = [
     description: "Supports 100+ languages and counting.",
     href: "/",
     cta: "NFT NAME",
-    background: <Image src={Nft1} width={500} className="absolute  " alt={""} />,
+    background: <Image alt="" src={Nft1} width={500} className="absolute" />,
     className:
       "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-5 sm:row-span-3",
   },
@@ -58,7 +60,13 @@ const features = [
     href: "/",
     cta: "NFT NAME",
     background: (
-      <Image src={Nft4} width={500} height={500} className="absolute h-fit  " alt={""} />
+      <Image
+        alt=""
+        src={Nft4}
+        width={500}
+        height={500}
+        className="absolute h-fit"
+      />
     ),
     className:
       "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-5 sm:row-span-3",
@@ -69,15 +77,17 @@ const features = [
     description: "Use the calendar to filter your files by date.",
     href: "/",
     cta: "NFT NAME",
-    background: <Image src={Nft1} width={500} className="absolute !mb-56  " alt={""} />,
+    background: (
+      <Image alt="" src={Nft1} width={500} className="absolute !mb-56" />
+    ),
     className:
-      "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2   sm:row-span-3",
+      "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2 sm:row-span-3",
   },
 ];
 
 export async function BentoDemo() {
   return (
-    <BentoGrid className="lg:grid-rows-5 grid grid-rows-5 grid-cols-3 mt-2  px-6 ">
+    <BentoGrid className="lg:grid-rows-5 grid grid-rows-5 grid-cols-3 mt-2 px-6">
       {features.map((feature) => (
         <BentoCard key={feature.name} {...feature} />
       ))}
