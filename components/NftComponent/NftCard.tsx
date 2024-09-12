@@ -16,7 +16,7 @@ interface CardProps {
 }
 
 function Card({ data }: CardProps) {
-  const [draw, setDraw] = useState(false);
+  const [draw, setDraw] = useState(true);
 
   const router = useRouter();
 
