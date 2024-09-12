@@ -1,5 +1,4 @@
 import {
-  BellIcon,
   CalendarIcon,
   FileTextIcon,
   GlobeIcon,
@@ -25,8 +24,7 @@ const features = [
         src={Nft2}
         width={500}
         height={500}
-        className="absolute  h-full "
-      />
+        className="absolute  h-full " alt={""}      />
     ),
     className:
       "lg:row-start-1 lg:row-end-5 lg:col-start-2 lg:col-end-3 sm:row-span-3",
@@ -38,7 +36,7 @@ const features = [
     href: "/",
     cta: "NFT NAME",
     background: (
-      <Image src={Nft3} width={500} height={300} className="absolute  " />
+      <Image src={Nft3} width={500} height={300} className="absolute  " alt={""} />
     ),
     className:
       "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3 sm:row-span-3",
@@ -49,7 +47,7 @@ const features = [
     description: "Supports 100+ languages and counting.",
     href: "/",
     cta: "NFT NAME",
-    background: <Image src={Nft1} width={500} className="absolute  " />,
+    background: <Image src={Nft1} width={500} className="absolute  " alt={""} />,
     className:
       "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-5 sm:row-span-3",
   },
@@ -60,7 +58,7 @@ const features = [
     href: "/",
     cta: "NFT NAME",
     background: (
-      <Image src={Nft4} width={500} height={500} className="absolute h-fit  " />
+      <Image src={Nft4} width={500} height={500} className="absolute h-fit  " alt={""} />
     ),
     className:
       "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-5 sm:row-span-3",
@@ -71,7 +69,7 @@ const features = [
     description: "Use the calendar to filter your files by date.",
     href: "/",
     cta: "NFT NAME",
-    background: <Image src={Nft1} width={500} className="absolute !mb-56  " />,
+    background: <Image src={Nft1} width={500} className="absolute !mb-56  " alt={""} />,
     className:
       "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2   sm:row-span-3",
   },
