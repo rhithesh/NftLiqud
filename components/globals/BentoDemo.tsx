@@ -9,7 +9,6 @@ import Nft1 from "@/public/1nft.png";
 import Nft2 from "@/public/2nft.png";
 import Nft3 from "@/public/3nft.png";
 import Nft4 from "@/public/4nft.png";
-
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 
 const features = [

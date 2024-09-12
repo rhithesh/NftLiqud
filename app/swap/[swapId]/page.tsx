@@ -30,12 +30,17 @@ import {
   CreditCard,
 } from "lucide-react";
 import { SellPageSkeleton } from "@/components/NftComponent/sell-page-skeleton";
-<<<<<<< Updated upstream
 import Image from "next/image";
-=======
 
->>>>>>> Stashed changes
-const currencies = [
+type Curency = {
+  name: string;
+  symbol: string;
+  logo: string;
+};
+
+type Currencys = Curency[];
+
+const currencies: Currencys = [
   {
     name: "Solana",
     symbol: "SOL",
@@ -53,7 +58,6 @@ const fadeInUp = {
   animate: { y: 0, opacity: 1 },
   exit: { y: -20, opacity: 0 },
 };
-<<<<<<< Updated upstream
 
 interface NFT {
   name: string;
@@ -67,11 +71,7 @@ interface NFTDetailsProps {
   nft: NFT;
 }
 
-const NFTDetails : React.FC<NFTDetailsProps> = ({ nft }) => (
-=======
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const NFTDetails = ({ nft }: { nft: any }) => (
->>>>>>> Stashed changes
+const NFTDetails: React.FC<NFTDetailsProps> = ({ nft }) => (
   <div className="space-y-4">
     <motion.div variants={fadeInUp}>
       <h3 className="text-lg font-semibold text-slate-400">Description</h3>
@@ -80,7 +80,6 @@ const NFTDetails = ({ nft }: { nft: any }) => (
     <motion.div variants={fadeInUp}>
       <h3 className="text-lg font-semibold text-gray-400">Attributes</h3>
       <div className="grid grid-cols-2 gap-2">
-<<<<<<< Updated upstream
         {nft.attributes.map(
           (attr: { value: string; trait_type: string }, index: number) => (
             <div key={index} className="bg-orange-100 rounded-md p-2">
@@ -89,18 +88,8 @@ const NFTDetails = ({ nft }: { nft: any }) => (
               </span>
               <span className="text-orange-600 ml-1">{attr.value}</span>
             </div>
-          )
+          ),
         )}
-=======
-        {nft.attributes.map((attr, index) => (
-          <div key={index} className="bg-orange-100 rounded-md p-2">
-            <span className="font-semibold text-orange-800">
-              {attr.trait_type}:
-            </span>
-            <span className="text-orange-600 ml-1">{attr.value}</span>
-          </div>
-        ))}
->>>>>>> Stashed changes
       </div>
     </motion.div>
     <motion.div variants={fadeInUp}>
@@ -110,7 +99,6 @@ const NFTDetails = ({ nft }: { nft: any }) => (
   </div>
 );
 
-<<<<<<< Updated upstream
 const PriceEstimator = ({
   estimatedPrice,
   finalPrice,
@@ -120,9 +108,6 @@ const PriceEstimator = ({
   finalPrice: number;
   selectedCurrency: { name: string; logo: string; symbol: string };
 }) => (
-=======
-const PriceEstimator = ({ estimatedPrice, finalPrice, selectedCurrency }) => (
->>>>>>> Stashed changes
   <motion.div
     variants={fadeInUp}
     className="bg-gradient-to-br from-orange-100 to-orange-200 p-4 rounded-lg shadow-inner"
@@ -189,7 +174,9 @@ const CustomSlider = ({
 );
 
 export default function SellPage() {
-  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const [selectedCurrency, setSelectedCurrency] = useState<Curency>(
+    currencies[0],
+  );
   const [estimatedPrice, setEstimatedPrice] = useState(1000);
   const [finalPrice, setFinalPrice] = useState(950);
   const [isLoading, setIsLoading] = useState(true);
@@ -256,15 +243,12 @@ export default function SellPage() {
             variants={fadeInUp}
             className="relative h-80 bg-gradient-to-r from-orange-200 to-orange-400 rounded-lg mb-8 overflow-hidden shadow-lg"
           >
-<<<<<<< Updated upstream
             <Image
               src="/nft.png"
-=======
-            <img
-              src="/Designer.jpeg"
->>>>>>> Stashed changes
               alt="Selected NFT"
               className="w-full h-full object-cover mix-blend-overlay"
+              width={800}
+              height={600}
             />
             <motion.div
               variants={fadeInUp}
@@ -278,107 +262,75 @@ export default function SellPage() {
                 <AvatarFallback>{selectedCurrency.symbol}</AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="text-3xl font-bold text-white shadow-text">
-                  {nft.name}
-                </h2>
-                <p className="text-white opacity-75 shadow-text">
-                  {nft.collection}
-                </p>
+                <h2 className="text-xl font-semibold">{nft.name}</h2>
+                <p className="text-sm text-gray-700">{nft.collection}</p>
               </div>
             </motion.div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <MotionCard
-              className="md:col-span-2 border-2 border-orange-300 shadow-lg hover:shadow-xl transition-shadow duration-300"
-              variants={fadeInUp}
-            >
+          <motion.div variants={fadeInUp} className="grid gap-8 lg:grid-cols-2">
+            <Card>
               <CardHeader>
-                <CardTitle className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-orange-600">
-                  NFT Information
-                </CardTitle>
+                <CardTitle>Details</CardTitle>
               </CardHeader>
               <CardContent>
                 <NFTDetails nft={nft} />
               </CardContent>
-            </MotionCard>
-
-            <MotionCard
-              variants={fadeInUp}
-              className="border-2 border-orange-300 shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              <CardHeader>
-                <CardTitle className="bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-orange-600">
-                  Checkout
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <motion.div variants={fadeInUp}>
-                  <label
-                    htmlFor="currency"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Select Currency
-                  </label>
-                  <Select
-<<<<<<< Updated upstream
-                    onValueChange={(value) => {
-                      const selected = currencies.find(
-                        (c) => c.symbol === value
-                      );
-                      if (selected) {
-                        setSelectedCurrency(selected);
-                      }
-                    }}
-=======
-                    onValueChange={(value) =>
-                      setSelectedCurrency(
-                        currencies.find((c) => c.symbol === value),
-                      )
+              <CardFooter>
+                <Select
+                  value={selectedCurrency.symbol}
+                  onValueChange={(value) => {
+                    const selected = currencies.find(
+                      (currency) => currency.symbol === value,
+                    );
+                    if (selected) {
+                      setSelectedCurrency(selected);
+                    } else {
+                      console.warn("Currency not found:", value);
                     }
->>>>>>> Stashed changes
-                  >
-                    <SelectTrigger id="currency" className="w-full">
-                      <SelectValue placeholder="Select currency" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {currencies.map((currency) => (
-                        <SelectItem
-                          key={currency.symbol}
-                          value={currency.symbol}
-                        >
-                          <div className="flex items-center">
-<<<<<<< Updated upstream
-                            <Image
+                  }}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue>
+                      <div className="flex items-center">
+                        <Avatar className="h-8 w-8 mr-2">
+                          <AvatarImage
+                            src={selectedCurrency.logo}
+                            alt={selectedCurrency.name}
+                          />
+                          <AvatarFallback>
+                            {selectedCurrency.symbol}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span>{selectedCurrency.name}</span>
+                      </div>
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {currencies.map((currency) => (
+                      <SelectItem key={currency.symbol} value={currency.symbol}>
+                        <div className="flex items-center">
+                          <Avatar className="h-8 w-8 mr-2">
+                            <AvatarImage
                               src={currency.logo}
                               alt={currency.name}
-                              width={400}
-                              height={400}
-=======
-                            <img
-                              src={currency.logo}
-                              alt={currency.name}
->>>>>>> Stashed changes
-                              className="w-6 h-6 mr-2"
                             />
-                            {currency.name} ({currency.symbol})
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </motion.div>
+                            <AvatarFallback>{currency.symbol}</AvatarFallback>
+                          </Avatar>
+                          <span>{currency.name}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </CardFooter>
+            </Card>
 
-                <motion.div variants={fadeInUp}>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Sale Speed
-                  </label>
-                  <CustomSlider
-                    value={[saleSpeed]}
-                    onChange={handleSaleSpeedChange}
-                  />
-                </motion.div>
-
+            <Card>
+              <CardHeader>
+                <CardTitle>Price Estimator</CardTitle>
+              </CardHeader>
+              <CardContent>
                 <PriceEstimator
                   estimatedPrice={estimatedPrice}
                   finalPrice={finalPrice}
@@ -386,94 +338,24 @@ export default function SellPage() {
                 />
               </CardContent>
               <CardFooter>
-                <MotionButton
-                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Wallet className="mr-2 h-4 w-4" /> Sell NFT
-                </MotionButton>
+                <CustomSlider
+                  value={[saleSpeed]}
+                  onChange={handleSaleSpeedChange}
+                />
               </CardFooter>
-            </MotionCard>
-          </div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="mt-12 p-6 rounded-lg shadow-lg bg-white border-2 border-orange-300"
-          >
-            <h2 className="text-3xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-orange-600">
-              How It Works
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: <Sparkles className="w-8 h-8 text-orange-500" />,
-                  title: "Select Currency",
-                  description: "Choose your preferred currency for the sale",
-                },
-                {
-                  icon: <TrendingUp className="w-8 h-8 text-orange-500" />,
-                  title: "Set Sale Speed",
-                  description:
-                    "Adjust the slider to balance between speed and price",
-                },
-                {
-                  icon: <Clock className="w-8 h-8 text-orange-500" />,
-                  title: "Review Estimate",
-                  description: "Check the estimated value and final price",
-                },
-                {
-                  icon: <Wallet className="w-8 h-8 text-orange-500" />,
-                  title: "Initiate Sale",
-                  description: "Click 'Sell NFT' to start the transaction",
-                },
-                {
-                  icon: <CreditCard className="w-8 h-8 text-orange-500" />,
-                  title: "Confirm Transaction",
-                  description: "Approve the transaction in your wallet",
-                },
-                {
-                  icon: <ArrowRight className="w-8 h-8 text-orange-500" />,
-                  title: "Receive Tokens",
-                  description: "Get your SPL tokens instantly!",
-                },
-              ].map((step, index) => (
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-center text-center p-4 bg-orange-50 rounded-lg shadow"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {step.icon}
-                  <h3 className="text-lg font-semibold mt-2 text-orange-800">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {step.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            </Card>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="mt-12 text-center">
-            <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-red-500 to-orange-600">
-              Ready to Convert Your NFT?
-            </h2>
-            <p className="text-xl text-gray-600 mb-6">
-              Get instant liquidity for your digital assets!
-            </p>
+          <div className="flex justify-center mt-8">
             <MotionButton
-              className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-3 rounded-full shadow-lg"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 0px 8px rgb(251, 146, 60)",
-              }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="bg-orange-500 text-white"
             >
-              Start Selling <ArrowRight className="ml-2 h-5 w-5" />
+              <span>Confirm Sale</span>
+              <ArrowRight className="ml-2" />
             </MotionButton>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>
