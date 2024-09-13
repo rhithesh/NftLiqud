@@ -4,7 +4,7 @@ const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string
 async function getAsset(id: string) {
   try {
     const url =
-      `https://mainnet.helius-rpc.com/?api-key=${HELIUS_API_KEY}`;
+      `https://mainnet.helius-rpc.com/?api-key=${NEXT_PUBLIC_HELIUS_API_KEY}`;
     const response = await axios.post(
       url,
       {
