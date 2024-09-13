@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string;
+const NEXT_PUBLIC_HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string;
 const url = `https://mainnet.helius-rpc.com/?api-key=${NEXT_PUBLIC_HELIUS_API_KEY}`;
 
 export const getAssetsByOwner = async (userAddress: string) => {

@@ -1,6 +1,4 @@
 "use client";
-/* eslint-disable */
-// @ts-nocheck
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
@@ -21,26 +19,18 @@ import {
 } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Slider } from "@/components/ui/slider";
-import {
-  ArrowRight,
-  Wallet,
-  Sparkles,
-  TrendingUp,
-  Clock,
-  CreditCard,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SellPageSkeleton } from "@/components/NftComponent/sell-page-skeleton";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
-type Curency = {
+type Currency = {
   name: string;
   symbol: string;
   logo: string;
 };
 
-type Currencys = Curency[];
-
-const currencies: Currencys = [
+const currencies: Currency[] = [
   {
     name: "Solana",
     symbol: "SOL",
@@ -50,7 +40,6 @@ const currencies: Currencys = [
   { name: "Serum", symbol: "SRM", logo: "/usdt.png" },
 ];
 
-const MotionCard = motion(Card);
 const MotionButton = motion(Button);
 
 const fadeInUp = {
@@ -59,16 +48,17 @@ const fadeInUp = {
   exit: { y: -20, opacity: 0 },
 };
 
-interface NFT {
+type Nft = {
   name: string;
-  collection: string;
+  image: string;
   description: string;
+  collection?: string;
   attributes: { trait_type: string; value: string }[];
   rarity: string;
-}
+};
 
 interface NFTDetailsProps {
-  nft: NFT;
+  nft: Nft;
 }
 
 const NFTDetails: React.FC<NFTDetailsProps> = ({ nft }) => (
@@ -80,16 +70,14 @@ const NFTDetails: React.FC<NFTDetailsProps> = ({ nft }) => (
     <motion.div variants={fadeInUp}>
       <h3 className="text-lg font-semibold text-gray-400">Attributes</h3>
       <div className="grid grid-cols-2 gap-2">
-        {nft.attributes.map(
-          (attr: { value: string; trait_type: string }, index: number) => (
-            <div key={index} className="bg-orange-100 rounded-md p-2">
-              <span className="font-semibold text-orange-800">
-                {attr.trait_type}:
-              </span>
-              <span className="text-orange-600 ml-1">{attr.value}</span>
-            </div>
-          ),
-        )}
+        {nft.attributes.map((attr, index) => (
+          <div key={index} className="bg-orange-100 rounded-md p-2">
+            <span className="font-semibold text-orange-800">
+              {attr.trait_type}:
+            </span>
+            <span className="text-orange-600 ml-1">{attr.value}</span>
+          </div>
+        ))}
       </div>
     </motion.div>
     <motion.div variants={fadeInUp}>
@@ -106,7 +94,7 @@ const PriceEstimator = ({
 }: {
   estimatedPrice: number;
   finalPrice: number;
-  selectedCurrency: { name: string; logo: string; symbol: string };
+  selectedCurrency: Currency;
 }) => (
   <motion.div
     variants={fadeInUp}
@@ -174,36 +162,41 @@ const CustomSlider = ({
 );
 
 export default function SellPage() {
-  const [selectedCurrency, setSelectedCurrency] = useState<Curency>(
-    currencies[0],
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
+    currencies[0]
   );
   const [estimatedPrice, setEstimatedPrice] = useState(1000);
   const [finalPrice, setFinalPrice] = useState(950);
   const [isLoading, setIsLoading] = useState(true);
   const [saleSpeed, setSaleSpeed] = useState(50);
   const controls = useAnimation();
+  const [nft, setNft] = useState<Nft | null>(null);
 
-  const nft = {
-    name: "#123 CryptoPunk",
-    collection: "CryptoPunks",
-    description: "A unique digital asset from the CryptoPunk collection.",
-    attributes: [
-      { trait_type: "Hair", value: "Mohawk" },
-      { trait_type: "Eyes", value: "Sunglasses" },
-      { trait_type: "Accessories", value: "Gold Chain" },
-      { trait_type: "Background", value: "Blue" },
-    ],
-    rarity: "Top 5% of the collection",
-  };
+  const searchParams = useSearchParams();
 
   useEffect(() => {
+    const nftName = searchParams.get('name');
+    const nftImage = searchParams.get('image');
+    const nftDescription = searchParams.get('description');
+
+    setNft({
+      name: nftName || 'Unknown NFT',
+      image: nftImage || '/placeholder.png',
+      description: nftDescription || 'No description available',
+      collection: 'Sample Collection',
+      attributes: [
+        { trait_type: 'Sample Trait', value: 'Sample Value' }
+      ],
+      rarity: 'Common'
+    });
+
     const timer = setTimeout(() => {
       setIsLoading(false);
       controls.start("animate");
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [controls]);
+  }, [searchParams, controls]);
 
   const handleSaleSpeedChange = useCallback((newValue: number[]) => {
     setSaleSpeed(newValue[0]);
@@ -211,7 +204,7 @@ export default function SellPage() {
     setFinalPrice((1000 - (newValue[0] - 50) * 10) * 0.95);
   }, []);
 
-  if (isLoading) {
+  if (isLoading || !nft) {
     return <SellPageSkeleton />;
   }
 
@@ -238,13 +231,12 @@ export default function SellPage() {
               Liquidate Your Asset
             </span>
           </motion.h1>
-
           <motion.div
             variants={fadeInUp}
             className="relative h-80 bg-gradient-to-r from-orange-200 to-orange-400 rounded-lg mb-8 overflow-hidden shadow-lg"
           >
             <Image
-              src="/nft.png"
+              src={nft.image}
               alt="Selected NFT"
               className="w-full h-full object-cover mix-blend-overlay"
               width={800}
@@ -267,7 +259,6 @@ export default function SellPage() {
               </div>
             </motion.div>
           </motion.div>
-
           <motion.div variants={fadeInUp} className="grid gap-8 lg:grid-cols-2">
             <Card>
               <CardHeader>
@@ -281,7 +272,7 @@ export default function SellPage() {
                   value={selectedCurrency.symbol}
                   onValueChange={(value) => {
                     const selected = currencies.find(
-                      (currency) => currency.symbol === value,
+                      (currency) => currency.symbol === value
                     );
                     if (selected) {
                       setSelectedCurrency(selected);
@@ -325,7 +316,6 @@ export default function SellPage() {
                 </Select>
               </CardFooter>
             </Card>
-
             <Card>
               <CardHeader>
                 <CardTitle>Price Estimator</CardTitle>
@@ -345,7 +335,6 @@ export default function SellPage() {
               </CardFooter>
             </Card>
           </motion.div>
-
           <div className="flex justify-center mt-8">
             <MotionButton
               whileHover={{ scale: 1.05 }}

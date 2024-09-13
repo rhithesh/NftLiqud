@@ -8,11 +8,9 @@ import {
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { clusterApiUrl } from "@solana/web3.js";
-import { TipLinkWalletAdapter } from "@tiplink/wallet-adapter"
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-const TIPLINK_CLIENT_ID = process.env.TIPLINK_CLIENT_ID as string; 
-const HELIUS_API = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string;
+const NEXT_PUBLIC_HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string;
 
 const CUSTOM_RPC_ENDPOINT = `https://mainnet.helius-rpc.com/?api-key=${NEXT_PUBLIC_HELIUS_API_KEY}`;
 
@@ -29,22 +27,9 @@ export default function AppWalletProvider({
     return selectedEndpoint;
   }, [network]);
 
-  const wallets = useMemo(
-    () => [
-
-      new TipLinkWalletAdapter({
-        title: "NFT",
-        clientId: TIPLINK_CLIENT_ID,
-        theme: "dark",
-      })
-
-    ],
-    [],
-  );
-
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

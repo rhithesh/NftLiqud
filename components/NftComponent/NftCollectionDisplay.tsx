@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Card from "@/components/NftComponent/NftCard";
 import { getAssetsByOwner } from "@/helperFunctions/getAssetsByOwner";

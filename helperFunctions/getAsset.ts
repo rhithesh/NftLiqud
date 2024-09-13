@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string
+const NEXT_PUBLIC_HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY as string
 async function getAsset(id: string) {
   try {
     const url =
